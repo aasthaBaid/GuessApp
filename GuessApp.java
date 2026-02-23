@@ -1,7 +1,7 @@
 /*
-Make guesses
+Hint generation
 @author developer
-@version 2.0
+@version 3.0
 */
 import java.util.*;
 public class GuessApp {
@@ -11,12 +11,15 @@ public class GuessApp {
 		game.showRules();
 		Scanner sc = new Scanner(System.in);
 		int attempts = 0;
+		int hintCount = 0;
 		while(attempts < game.getMaxAttempts()){
 			System.out.println("Enter you guess:" );
 			int guess = sc.nextInt();
 			attempts++;
+			hintCount++;
 			String result = GuessValidator.validateGuess(guess, game.getTargetNumber());
 			System.out.println(result);
+			System.out.println(HintService.generateHint(game.getTargetNumber(),hintCount));
 			if("CORRECT".equals(result)) break;
 		}
 	}	
