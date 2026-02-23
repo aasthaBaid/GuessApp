@@ -19,3 +19,6 @@
 ## UC5
 - create StorageService class file, that take the user data and stores in another text file to save.
 - push to feature/uc5-guessapp and merge with dev
+## UC6
+- create GameController class file, that allows users to restart and exit the game.
+- push to feature/uc5-guessapp and merge with dev
