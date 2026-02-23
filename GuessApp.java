@@ -1,11 +1,11 @@
 /*
-Hint generation
+Error Handling & validation
 @author developer
-@version 3.0
+@version 4.0
 */
 import java.util.*;
 public class GuessApp {
-	public static void main(String[] args){
+	public static void main(String[] args) throws InvalidInputException {
 		System.out.println("Welcome to the game");
 		GameConfig game = new GameConfig();
 		game.showRules();
@@ -14,12 +14,17 @@ public class GuessApp {
 		int hintCount = 0;
 		while(attempts < game.getMaxAttempts()){
 			System.out.println("Enter you guess:" );
-			int guess = sc.nextInt();
+			// exception handling
+			int guess = ValidationService.validateInput(sc.nextLine());
 			attempts++;
-			hintCount++;
 			String result = GuessValidator.validateGuess(guess, game.getTargetNumber());
+			// if result is not correct, look for hints
+			if(!"CORRECT".equals(result) && hintCount < game.getMaxHints()){
+				hintCount++;
+				System.out.println(HintService.generateHint(game.getTargetNumber(),hintCount));
+			}
 			System.out.println(result);
-			System.out.println(HintService.generateHint(game.getTargetNumber(),hintCount));
+			// break the loop when found
 			if("CORRECT".equals(result)) break;
 		}
 	}	
